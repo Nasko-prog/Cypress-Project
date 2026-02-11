@@ -2,17 +2,40 @@ import { LoginPage } from "./pages/login_page"
 
 const loginPage = new LoginPage()
 
-it('pageobjectmodel' , function(){
+beforeEach(function(){
+     cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
+})
 
-    cy.visit('https://opensource-demo.orangehrmlive.com/web/index.php/dashboard/index')
+describe('Login Tests', function() {
 
-    loginPage.enterUsername('Admin')
+it('Login Test with valid credentials' , function() {
+
+   loginPage.enterUsername('Admin')
     loginPage.enterPassword('admin123')
     loginPage.clickLogin()
+    cy.get('.oxd-userdropdown-name').click()
 
-//cy.get('[name="username"]').type('Admin')
 
-//cy.get('[name="password"]').type('admin123')
+     })
 
-//cy.get('.oxd-button').click()
+
+it('Login Test with invalid username' , function() {
+
+    loginPage.enterUsername('Admin123')
+    loginPage.enterPassword('admin123')
+    loginPage.clickLogin()
+    cy.get('.oxd-userdropdown-name').click()
+
+     })
+
+    
+
+it('Login Test with invalid password' , function() {
+
+    loginPage.enterUsername('Admin')
+    loginPage.enterPassword('admin1234')
+    loginPage.clickLogin()
+    cy.get('.oxd-userdropdown-name').click()
+
+     })
 })
